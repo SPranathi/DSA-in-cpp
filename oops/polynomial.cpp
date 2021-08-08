@@ -173,9 +173,9 @@ class polynomial{
 
 };
 
-
 int main(){
     int count1,count2,choice;
+    //for first polynomial 
     cin>>count1;
     int *degree1=new int[count1];
     int *coeffient1=new int[count1];
@@ -189,7 +189,7 @@ int main(){
     for(int i=0;i<count1;i++){
         P1.setcoeffient(degree1[i],coeffient1[i]);
     }
-
+    //for second polynomial
     cin>>count2;
     int *degree2=new int[count2];
     int *coeffient2=new int [count2];
