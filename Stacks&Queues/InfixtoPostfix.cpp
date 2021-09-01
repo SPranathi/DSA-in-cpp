@@ -13,3 +13,83 @@ Sample Output 1 :
 34+
 7
 */ 
+#include<iostream>
+#include<stack>
+#include<string>
+#include<unordered_map>
+using namespace std;
+int calc(int a,int b,char op){
+    int ans;
+    switch(op){
+        case '+':ans=a+b;
+        break;
+        case '-':ans=a-b;
+        break;
+        case '/':ans=a/b;
+        break;
+        case '*':ans=a*b;
+        break;
+    }
+    return ans;
+}
+void topostfix(char exp[]){
+    unordered_map<char,int> prec;
+    prec['/']=2;
+    prec['*']=2;
+    prec['+']=1;
+    prec['-']=1;
+    
+    string postfix="";
+
+    stack<char> op;
+    for(int i=0;exp[i]!='\0';i++){
+        if(exp[i]>=48 && exp[i]<=57)
+            postfix+=exp[i];
+        else if(op.empty() || exp[i]=='('){
+            op.push(exp[i]);
+        }
+        else if(exp[i]!=')'){
+            while(!op.empty() && prec[exp[i]]<=prec[op.top()] && op.top()!='('){
+                postfix+=op.top();
+                op.pop();
+            }
+            op.push(exp[i]);
+        }
+        else{
+            while(!op.empty() && op.top()!='('){
+                postfix+=op.top();
+                op.pop();
+            }
+            if(!op.empty() && op.top()=='(')
+                op.pop();
+        }
+    }
+    while(!op.empty()){
+        postfix+=op.top();
+        op.pop();
+    }
+    cout<<postfix<<endl;
+
+    stack<int> cal;
+    int k=0;
+    while(k<postfix.size()){
+        if(postfix[k]>=48 && postfix[k]<=57){
+            cal.push(postfix[k]-48);
+        }
+        else{
+            int b=cal.top();
+            cal.pop();
+            int a=cal.top();
+            cal.pop();
+            int ans=calc(a,b,postfix[k]);
+            cal.push(ans);
+        }
+        k++;
+    }
+    cout<<cal.top()<<endl;
+}
+int main(){
+    char input[1000];
+    cin>>input;
+    topostfix(input);
+}
