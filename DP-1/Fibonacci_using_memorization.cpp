@@ -6,7 +6,7 @@ int fib(int n){
         return n;
     return fib(n-1)+fib(n-2);
 }
-
+//using memorization
 int fib_better(int n,int *ans){
     if(n<=1){
         ans[n]=n;
@@ -19,12 +19,14 @@ int fib_better(int n,int *ans){
     ans[n]=ans[n-1]+ans[n-2];
     return ans[n];
 }
+
 int fib_better(int n){
     int *ans=new int[n+1];
     for(int i=0;i<=n;i++)
         ans[i]=0;
     return fib_better(n,ans);
 }
+
 int main(){
     int n;
     cin>>n;
