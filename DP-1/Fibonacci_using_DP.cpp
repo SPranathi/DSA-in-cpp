@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-//using dynamic programming or top-down
+//using dynamic programming or bottom-up
 int fib_DP(int n){
     int *ans=new int[n+1];
     ans[0]=0;
@@ -17,7 +17,7 @@ int fib(int n){
     return fib(n-1)+fib(n-2);
 }
 
-//using memorization or bottom-up
+//using memorization or top-down
 int fib_better(int n,int *ans){
     if(n<=1){
         ans[n]=n;
